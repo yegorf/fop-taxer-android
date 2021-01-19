@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">fop-taxer-android</string>
+    <string name="app_name">FOP Taxer</string>
+    <string name="calculation_income_total">Total income</string>
+    <string name="calculation_calculate">Calculate</string>
 </resources>
