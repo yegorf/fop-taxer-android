@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="25dp"
-        app:tint="@color/black" />
+        app:tint="@color/lightGrey" />
 
     <ImageView
         android:id="@+id/tab_calendar"
