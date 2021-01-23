@@ -6,14 +6,29 @@
     android:orientation="vertical"
     android:paddingHorizontal="10dp">
 
-    <TextView
-        android:id="@+id/tv_date"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="01.01.2021" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:text="01.01.2021" />
+
+        <View
+            android:id="@+id/date_indicator"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            tools:background="@drawable/circle_indicator_grey" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_description"

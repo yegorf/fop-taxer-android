@@ -14,6 +14,6 @@
         android:id="@+id/bottom_navigation"
         android:name="com.yegorf.fop_taxer_android.fragment.BottomNavigationFragment"
         android:layout_width="match_parent"
-        android:layout_height="70dp" />
+        android:layout_height="60dp" />
 
 </LinearLayout>

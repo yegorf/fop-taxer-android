@@ -25,7 +25,7 @@ class BottomNavigationFragment : Fragment() {
     ): View {
         val binding = FragmentBottomNavigationBinding.inflate(inflater)
 
-        selectedTab = binding.tabCalculation
+        selectedTab = binding.tabCalendar
         animateSelectTab(selectedTab)
 
         setOnClickListeners(binding)

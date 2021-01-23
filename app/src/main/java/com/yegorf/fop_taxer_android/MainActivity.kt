@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FragmentNavigator(supportFragmentManager).openFragment(FragmentNavigator.Screen.CALCULATION)
+        FragmentNavigator(supportFragmentManager).openFragment(FragmentNavigator.Screen.CALENDAR)
     }
 }

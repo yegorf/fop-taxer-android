@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.yegorf.fop_taxer_android.adapter.EventsAdapter
 import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.databinding.FragmentCalendarBinding
+import com.yegorf.fop_taxer_android.tools.DateHelper
 import java.util.*
 
 
@@ -26,8 +27,13 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater)
+        setDate()
         setEventsList(getCalendar())
         return binding.root
+    }
+
+    private fun setDate() {
+        binding.tvCurrentDate.text = DateHelper.getCurrentDate()
     }
 
     private fun setEventsList(events: List<TaxEvent>) {
