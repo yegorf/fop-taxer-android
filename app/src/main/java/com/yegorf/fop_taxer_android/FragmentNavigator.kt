@@ -9,10 +9,9 @@ import com.yegorf.fop_taxer_android.fragment.ReminderFragment
 
 class FragmentNavigator(private val fragmentManager: FragmentManager) {
 
-    private val homeScreen = Screen.CALENDAR
-
     companion object {
-        private lateinit var currentScreen: Screen
+        lateinit var currentScreen: Screen
+        val homeScreen = Screen.CALENDAR
     }
 
     enum class Screen {

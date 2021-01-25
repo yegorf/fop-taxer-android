@@ -3,4 +3,7 @@
     <string name="calculation_income_total">Total income</string>
     <string name="calculation_calculate">Calculate</string>
     <string name="notifications">Notifications</string>
+    <string name="calendar">Calendar</string>
+    <string name="calculation">Calculation</string>
+    <string name="reminder">Reminder</string>
 </resources>
