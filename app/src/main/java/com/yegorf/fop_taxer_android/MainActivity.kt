@@ -12,4 +12,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         FragmentNavigator(supportFragmentManager).openFragment(FragmentNavigator.Screen.CALENDAR)
     }
+
+    override fun onBackPressed() {
+        FragmentNavigator(supportFragmentManager).navigateBack(this)
+    }
 }
