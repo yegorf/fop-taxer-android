@@ -8,14 +8,14 @@
     <TextView
         android:id="@+id/tv_current_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:padding="5dp"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
         android:elevation="5dp"
         android:background="@color/white"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         tools:text="21.01.2021" />
 
     <androidx.recyclerview.widget.RecyclerView

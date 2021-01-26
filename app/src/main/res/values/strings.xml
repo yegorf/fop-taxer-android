@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">FOP Taxer</string>
-    <string name="calculation_income_total">Total income</string>
+    <string name="calculation_income_total">Total income (UAH)</string>
     <string name="calculation_calculate">Calculate</string>
     <string name="notifications">Notifications</string>
     <string name="calendar">Calendar</string>
     <string name="calculation">Calculation</string>
     <string name="reminder">Reminder</string>
+    <string name="get_rates_fail">Can\'t get exchange rates</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="usd_rate_template">$ %1$s</string>
+    <string name="usd_result_template">($%1$s)</string>
 </resources>
