@@ -18,8 +18,7 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
-    private val calendarFileName = "calendar2020.json"
-    private lateinit var binding: FragmentCalendarBinding;
+    private lateinit var binding: FragmentCalendarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +43,9 @@ class CalendarFragment : Fragment() {
     }
 
     private fun getCalendar(): List<TaxEvent> {
+        val year = Calendar.getInstance().get(Calendar.YEAR)
+        val calendarFileName = "calendar$year.json"
+
         val inputStream = context?.assets?.open(calendarFileName)
         val scanner = Scanner(inputStream)
         val builder = StringBuilder()
