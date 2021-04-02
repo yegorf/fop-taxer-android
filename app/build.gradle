@@ -33,6 +33,12 @@ android {
     viewBinding {
         enabled = true
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${variant.name}-${variant.versionName}.apk"
+        }
+    }
 }
 
 dependencies {
