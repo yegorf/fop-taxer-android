@@ -22,6 +22,7 @@
         android:id="@+id/rv_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_current_date" />
+        android:layout_below="@+id/tv_current_date"
+        tools:listitem="@layout/item_tax_event"/>
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.yegorf.fop_taxer_android.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.data.TaxEvent
@@ -35,7 +36,7 @@ class EventsAdapter(private val data: List<TaxEvent>) :
                 DateHelper.DateStatus.TODAY -> R.drawable.circle_indicator_red
                 DateHelper.DateStatus.PASSED -> R.drawable.circle_indicator_green
             }
-            binding.dateIndicator.background = binding.root.context.getDrawable(indicatorColor)
+            binding.dateIndicator.background = ContextCompat.getDrawable(binding.root.context, indicatorColor)
         }
     }
 }
