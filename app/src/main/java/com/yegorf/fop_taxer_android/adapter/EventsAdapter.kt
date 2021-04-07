@@ -31,6 +31,7 @@ class EventsAdapter(private val data: List<TaxEvent>) :
 
             val indicatorColor = when (DateHelper.getEventStatus(event.date)) {
                 DateHelper.DateStatus.EXPECTED -> R.drawable.circle_indicator_grey
+                DateHelper.DateStatus.SOON -> R.drawable.circle_indicator_yellow
                 DateHelper.DateStatus.TODAY -> R.drawable.circle_indicator_red
                 DateHelper.DateStatus.PASSED -> R.drawable.circle_indicator_green
             }

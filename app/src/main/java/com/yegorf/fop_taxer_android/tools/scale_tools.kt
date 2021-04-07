@@ -1,4 +1,4 @@
-package com.yegorf.fop_taxer_android
+package com.yegorf.fop_taxer_android.tools
 
 import android.content.Context
 import android.util.DisplayMetrics

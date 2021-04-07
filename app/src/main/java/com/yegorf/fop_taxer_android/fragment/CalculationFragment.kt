@@ -12,11 +12,10 @@ import androidx.fragment.app.Fragment
 import com.yegorf.fop_taxer_android.Constants
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentCaltulationBinding
+import com.yegorf.fop_taxer_android.tools.DateHelper
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class CalculationFragment : Fragment() {
@@ -81,7 +80,7 @@ class CalculationFragment : Fragment() {
     private fun calculateTax(totalIncome: Float) = totalIncome * Constants.TAX_EN_3
 
     private fun getCurrency() {
-        val currentDate = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date())
+        val currentDate = DateHelper.getCurrentDate("yyyyMMdd")
         val url =
             "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=$currentDate&json"
         val request = Request.Builder().url(url).build()

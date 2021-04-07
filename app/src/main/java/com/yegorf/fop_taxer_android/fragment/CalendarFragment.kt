@@ -32,7 +32,7 @@ class CalendarFragment : Fragment() {
     }
 
     private fun setDate() {
-        binding.tvCurrentDate.text = DateHelper.getCurrentDate()
+        binding.tvCurrentDate.text = DateHelper.getCurrentDate("dd.MM.yyyy")
     }
 
     private fun setEventsList(events: List<TaxEvent>) {

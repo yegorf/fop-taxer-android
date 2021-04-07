@@ -10,4 +10,5 @@
     <color name="lightGrey">#c5c5c5</color>
     <color name="coralRed">#E74B29</color>
     <color name="lightGreen">#8DEF89</color>
+    <color name="warningYellow">#ffbb00</color>
 </resources>
