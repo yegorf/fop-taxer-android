@@ -22,8 +22,8 @@ class ReminderFragment : Fragment() {
     }
 
     private fun initViews(binding: FragmentReminderBinding) {
-        if (activity != null) {
-            val manager = PreferencesManager(activity!!)
+        activity?.let {
+            val manager = PreferencesManager(it)
             binding.switchNotifications.isChecked = manager.isShowNotifications()
             binding.switchNotifications.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
                 manager.setNotificationsOn(b)

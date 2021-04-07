@@ -31,9 +31,9 @@ class CalculationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCaltulationBinding.inflate(inflater)
-        setOnClickListeners();
+        setOnClickListeners()
         getCurrency()
-        return binding.root;
+        return binding.root
     }
 
     private fun setOnClickListeners() {
@@ -68,9 +68,9 @@ class CalculationFragment : Fragment() {
     }
 
     private fun copyToClipboard(text: String) {
-        if (activity != null) {
+        activity?.let {
             val clipboard =
-                activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", text)
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
@@ -96,9 +96,8 @@ class CalculationFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val json = response.body()?.string()
-                    if (json != null) {
-                        val rate = JSONArray(json).getJSONObject(0).get("rate")
+                    response.body()?.string()?.let {
+                        val rate = JSONArray(it).getJSONObject(0).get("rate")
                         usdRate = rate.toString().toFloat()
                         activity?.runOnUiThread {
                             binding.tvCurrency.text =
