@@ -3,7 +3,7 @@ package com.yegorf.fop_taxer_android
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.yegorf.fop_taxer_android.fragment.CalculationFragment
+import com.yegorf.fop_taxer_android.fragment.calculation.CalculationFragment
 import com.yegorf.fop_taxer_android.fragment.CalendarFragment
 import com.yegorf.fop_taxer_android.fragment.ReminderFragment
 

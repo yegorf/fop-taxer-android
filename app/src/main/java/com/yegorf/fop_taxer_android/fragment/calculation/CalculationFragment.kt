@@ -1,4 +1,4 @@
-package com.yegorf.fop_taxer_android.fragment
+package com.yegorf.fop_taxer_android.fragment.calculation
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -12,16 +12,12 @@ import androidx.fragment.app.Fragment
 import com.yegorf.fop_taxer_android.Constants
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentCaltulationBinding
-import com.yegorf.fop_taxer_android.tools.DateHelper
-import okhttp3.*
-import org.json.JSONArray
-import java.io.IOException
 
 
-class CalculationFragment : Fragment() {
+class CalculationFragment : Fragment(), CalculationView {
 
     private lateinit var binding: FragmentCaltulationBinding
-    private var okHttpClient = OkHttpClient()
+    private val presenter: CalculationPresenter = CalculationPresenterImpl();
     private var usdRate: Float = -1f
 
     override fun onCreateView(
@@ -30,8 +26,9 @@ class CalculationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCaltulationBinding.inflate(inflater)
+        presenter.onCreate(this)
+        presenter.getCurrency()
         setOnClickListeners()
-        getCurrency()
         return binding.root
     }
 
@@ -79,32 +76,14 @@ class CalculationFragment : Fragment() {
 
     private fun calculateTax(totalIncome: Float) = totalIncome * Constants.TAX_EN_3
 
-    private fun getCurrency() {
-        val currentDate = DateHelper.getCurrentDate("yyyyMMdd")
-        val url =
-            "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=$currentDate&json"
-        val request = Request.Builder().url(url).build()
-
-        okHttpClient.newCall(request)
-            .enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    activity?.runOnUiThread {
-                        binding.tvCurrency.text = getString(R.string.get_rates_fail)
-                        binding.ratesProgressBar.visibility = View.INVISIBLE
-                    }
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    response.body()?.string()?.let {
-                        val rate = JSONArray(it).getJSONObject(0).get("rate")
-                        usdRate = rate.toString().toFloat()
-                        activity?.runOnUiThread {
-                            binding.tvCurrency.text =
-                                getString(R.string.usd_rate_template, rate.toString())
-                            binding.ratesProgressBar.visibility = View.INVISIBLE
-                        }
-                    }
-                }
-            })
+    override fun setCurrency(currency: Float) {
+        if (currency != -1f) {
+            usdRate = currency
+            binding.tvCurrency.text = getString(R.string.usd_rate_template, currency.toString())
+            binding.ratesProgressBar.visibility = View.INVISIBLE
+        } else {
+            binding.tvCurrency.text = getString(R.string.get_rates_fail)
+            binding.ratesProgressBar.visibility = View.INVISIBLE
+        }
     }
 }
