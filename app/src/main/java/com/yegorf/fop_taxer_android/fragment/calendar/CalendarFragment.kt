@@ -1,4 +1,4 @@
-package com.yegorf.fop_taxer_android.fragment
+package com.yegorf.fop_taxer_android.fragment.calendar
 
 import android.graphics.drawable.ClipDrawable.HORIZONTAL
 import android.os.Bundle
@@ -8,17 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import com.yegorf.fop_taxer_android.adapter.EventsAdapter
 import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.databinding.FragmentCalendarBinding
-import com.yegorf.fop_taxer_android.tools.DateHelper
-import java.util.*
 
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : Fragment(), CalendarView {
 
     private lateinit var binding: FragmentCalendarBinding
+    private val presenter: CalendarPresenter = CalendarPresenterImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,32 +24,21 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater)
-        setDate()
-        setEventsList(getCalendar())
+        presenter.onCreate(this)
+        context?.let {
+            presenter.getCalendar(it)
+        }
         return binding.root
     }
 
-    private fun setDate() {
-        binding.tvCurrentDate.text = DateHelper.getCurrentDate("dd.MM.yyyy")
+    override fun setDate(date: String) {
+        binding.tvCurrentDate.text = date
     }
 
-    private fun setEventsList(events: List<TaxEvent>) {
+    override fun setCalendar(events: List<TaxEvent>) {
         val adapter = EventsAdapter(events)
         binding.rvEvents.layoutManager = LinearLayoutManager(context)
         binding.rvEvents.adapter = adapter
         binding.rvEvents.addItemDecoration(DividerItemDecoration(context, HORIZONTAL))
-    }
-
-    private fun getCalendar(): List<TaxEvent> {
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        val calendarFileName = "calendar$year.json"
-
-        val inputStream = context?.assets?.open(calendarFileName)
-        val scanner = Scanner(inputStream)
-        val builder = StringBuilder()
-        while (scanner.hasNext()) {
-            builder.append(scanner.nextLine())
-        }
-        return Gson().fromJson(builder.toString(), Array<TaxEvent>::class.java).asList()
     }
 }
