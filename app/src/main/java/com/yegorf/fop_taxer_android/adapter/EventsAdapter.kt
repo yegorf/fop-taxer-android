@@ -45,7 +45,7 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
         fun bind(event: TaxEvent) {
             binding.tvDescription.text = event.description
             binding.tvDate.text = event.date
-            setEventStatusView(event)
+            bindDoneStatus(event)
 
             val eventStatus = DateHelper.getEventStatus(event)
             if (eventStatus == DateHelper.DateStatus.EXPIRED || eventStatus == DateHelper.DateStatus.DONE) { //todo: temporary solution
@@ -58,10 +58,6 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
         }
 
         fun bindDoneStatus(event: TaxEvent) {
-            setEventStatusView(event)
-        }
-
-        private fun setEventStatusView(event: TaxEvent) {
             val indicatorColor = when (DateHelper.getEventStatus(event)) {
                 DateHelper.DateStatus.EXPECTED -> R.drawable.circle_indicator_grey
                 DateHelper.DateStatus.SOON -> R.drawable.circle_indicator_yellow

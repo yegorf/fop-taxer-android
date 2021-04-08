@@ -17,7 +17,7 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
 
     private lateinit var binding: FragmentCalendarBinding
     private val presenter: CalendarPresenter = CalendarPresenterImpl()
-    lateinit var adapter: EventsAdapter
+    private lateinit var adapter: EventsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
