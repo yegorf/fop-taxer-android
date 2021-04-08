@@ -1,11 +1,11 @@
 package com.yegorf.fop_taxer_android.fragment.calendar
 
 import android.content.Context
-import com.google.gson.Gson
 import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.presentation.AbstractPresenter
+import com.yegorf.fop_taxer_android.storage.`object`.TaxEventObject
+import com.yegorf.fop_taxer_android.storage.dao.TaxEventDao
 import com.yegorf.fop_taxer_android.tools.DateHelper
-import java.util.*
 
 class CalendarPresenterImpl : AbstractPresenter<CalendarView>(), CalendarPresenter {
 
@@ -15,16 +15,11 @@ class CalendarPresenterImpl : AbstractPresenter<CalendarView>(), CalendarPresent
     }
 
     override fun getCalendar(context: Context) {
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        val calendarFileName = "calendar$year.json"
-
-        val inputStream = context.assets?.open(calendarFileName)
-        val scanner = Scanner(inputStream)
-        val builder = StringBuilder()
-        while (scanner.hasNext()) {
-            builder.append(scanner.nextLine())
-        }
-        val events = Gson().fromJson(builder.toString(), Array<TaxEvent>::class.java).asList()
+        val events = TaxEventDao.getAll()
         view?.setCalendar(events)
+    }
+
+    override fun setEventAsDone(event: TaxEvent) {
+        TaxEventDao.markAsDone(TaxEventObject(event))
     }
 }

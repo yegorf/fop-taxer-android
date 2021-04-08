@@ -10,9 +10,5 @@ class TaxerApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         RealmHelper.init(this)
-
-        TaxEventDao.getAll().forEach {
-            Log.d("testing", "${it.date} - ${it.description}")
-        }
     }
 }

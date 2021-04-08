@@ -1,5 +1,6 @@
 package com.yegorf.fop_taxer_android.tools
 
+import com.yegorf.fop_taxer_android.data.TaxEvent
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -8,15 +9,18 @@ object DateHelper {
 
     private const val WARNING_INTERVAL = 5
 
-    fun getEventStatus(date: String): DateStatus {
-        val eventDate = SimpleDateFormat("dd.MM.yyyy", Locale.US).parse(date)
+    fun getEventStatus(event: TaxEvent): DateStatus {
+        val eventDate = SimpleDateFormat("dd.MM.yyyy", Locale.US).parse(event.date)
         val currentDate = Date()
 
         eventDate?.let {
             val difference = getDifferenceInDays(currentDate, eventDate)
             return when {
-                difference < 0 -> DateStatus.PASSED
-                difference == 0L -> DateStatus.TODAY
+                difference < 0 -> if (event.isDone) {
+                    DateStatus.DONE
+                } else {
+                    DateStatus.EXPIRED
+                }
                 difference <= WARNING_INTERVAL -> DateStatus.SOON
                 difference > WARNING_INTERVAL -> DateStatus.EXPECTED
                 else -> DateStatus.EXPECTED
@@ -37,7 +41,7 @@ object DateHelper {
     enum class DateStatus {
         EXPECTED,
         SOON,
-        TODAY,
-        PASSED
+        DONE,
+        EXPIRED
     }
 }

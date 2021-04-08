@@ -29,7 +29,7 @@ object RealmHelper {
                         TaxEventObject(event)
                     }
                     .forEach { eventObject ->
-                        TaxEventDao.insertInit(realm, eventObject)
+                        TaxEventDao.insert(realm, eventObject)
                     }
             }
             .build()

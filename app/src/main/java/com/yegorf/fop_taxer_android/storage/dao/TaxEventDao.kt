@@ -7,22 +7,21 @@ import io.realm.kotlin.where
 
 object TaxEventDao : RealmDao<TaxEventObject>() {
 
-    fun insert(taxEventObject: TaxEventObject) {
-        Realm.getDefaultInstance().executeTransaction {
-            taxEventObject.id = generateId(TaxEventObject::class.java, it)
-            it.insert(taxEventObject)
-        }
-    }
-
-    fun insertInit(realm: Realm, taxEventObject: TaxEventObject) {
+    fun insert(realm: Realm, taxEventObject: TaxEventObject) {
         taxEventObject.id = generateId(TaxEventObject::class.java, realm)
         realm.insert(taxEventObject)
+    }
+
+    fun markAsDone(taxEventObject: TaxEventObject) {
+        Realm.getDefaultInstance().executeTransaction {
+            it.insertOrUpdate(taxEventObject)
+        }
     }
 
     fun getAll(): List<TaxEvent> {
         return Realm.getDefaultInstance()
             .where<TaxEventObject>()
             .findAll()
-            .map { TaxEvent(it.date, it.description) }
+            .map { TaxEvent(it.id, it.date, it.description, it.isDone) }
     }
 }

@@ -9,9 +9,12 @@ open class TaxEventObject() : RealmObject() {
     var id: Int = 0
     lateinit var date: String
     lateinit var description: String
+    var isDone: Boolean = false
 
     constructor(taxEvent: TaxEvent): this() {
+        id = taxEvent.id
         date = taxEvent.date
         description = taxEvent.description
+        isDone = taxEvent.isDone
     }
 }

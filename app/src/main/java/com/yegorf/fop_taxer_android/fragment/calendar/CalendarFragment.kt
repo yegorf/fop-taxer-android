@@ -13,10 +13,11 @@ import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.databinding.FragmentCalendarBinding
 
 
-class CalendarFragment : Fragment(), CalendarView {
+class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListener {
 
     private lateinit var binding: FragmentCalendarBinding
     private val presenter: CalendarPresenter = CalendarPresenterImpl()
+    lateinit var adapter: EventsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,9 +37,14 @@ class CalendarFragment : Fragment(), CalendarView {
     }
 
     override fun setCalendar(events: List<TaxEvent>) {
-        val adapter = EventsAdapter(events)
+        adapter = EventsAdapter(events, this)
         binding.rvEvents.layoutManager = LinearLayoutManager(context)
         binding.rvEvents.adapter = adapter
         binding.rvEvents.addItemDecoration(DividerItemDecoration(context, HORIZONTAL))
+    }
+
+    override fun onEventLongTap(event: TaxEvent, adapterPosition: Int) {
+        presenter.setEventAsDone(event)
+        adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.DONE_STATUS_UPDATE)
     }
 }
