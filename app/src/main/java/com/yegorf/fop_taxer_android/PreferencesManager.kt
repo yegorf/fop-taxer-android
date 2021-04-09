@@ -8,17 +8,28 @@ class PreferencesManager(activity: FragmentActivity) {
 
     private val preferences: SharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
 
-    companion object {
-        private const val NOTIFICATIONS_ON_KEY = "NOTIFICATIONS_ON_KEY"
+    object Key {
+        const val NOTIFICATIONS_ON = "NOTIFICATIONS_ON"
+        const val TAX_GROUP = "TAX_GROUP"
     }
 
     fun setNotificationsOn(notificationsOn: Boolean) {
         preferences.edit()
-            .putBoolean(NOTIFICATIONS_ON_KEY, notificationsOn)
+            .putBoolean(Key.NOTIFICATIONS_ON, notificationsOn)
             .apply()
     }
 
     fun isShowNotifications(): Boolean {
-        return preferences.getBoolean(NOTIFICATIONS_ON_KEY, true)
+        return preferences.getBoolean(Key.NOTIFICATIONS_ON, true)
+    }
+
+    fun setTaxGroup(group: Int) {
+        preferences.edit()
+            .putInt(Key.TAX_GROUP, group)
+            .apply()
+    }
+
+    fun getTaxGroup(): Int {
+        return preferences.getInt(Key.TAX_GROUP, 3)
     }
 }

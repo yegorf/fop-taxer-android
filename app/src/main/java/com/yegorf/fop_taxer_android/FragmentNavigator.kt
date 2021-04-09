@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import com.yegorf.fop_taxer_android.fragment.calculation.CalculationFragment
 import com.yegorf.fop_taxer_android.fragment.calendar.CalendarFragment
 import com.yegorf.fop_taxer_android.fragment.ReminderFragment
+import com.yegorf.fop_taxer_android.fragment.SettingsFragment
 
 class FragmentNavigator(private val fragmentManager: FragmentManager) {
 
@@ -17,6 +18,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) {
     enum class Screen {
         CALCULATION,
         CALENDAR,
+        SETTINGS,
         REMINDER
     }
 
@@ -24,6 +26,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) {
         return when (screen) {
             Screen.CALCULATION -> CalculationFragment()
             Screen.CALENDAR -> CalendarFragment()
+            Screen.SETTINGS -> SettingsFragment()
             Screen.REMINDER -> ReminderFragment()
         }
     }

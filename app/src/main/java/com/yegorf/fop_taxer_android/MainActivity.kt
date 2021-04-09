@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             val screen = when (it.itemId) {
                 R.id.navigation_calendar -> FragmentNavigator.Screen.CALENDAR
                 R.id.navigation_calculation -> FragmentNavigator.Screen.CALCULATION
+                R.id.navigation_settings -> FragmentNavigator.Screen.SETTINGS
                 R.id.navigation_reminder -> FragmentNavigator.Screen.REMINDER
                 else -> FragmentNavigator.Screen.CALENDAR
             }
