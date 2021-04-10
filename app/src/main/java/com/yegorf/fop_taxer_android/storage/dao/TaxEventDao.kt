@@ -22,6 +22,14 @@ object TaxEventDao : RealmDao<TaxEventObject>() {
         return Realm.getDefaultInstance()
             .where<TaxEventObject>()
             .findAll()
-            .map { TaxEvent(it.id, it.date, it.description, it.isDone) }
+            .map { TaxEvent(it.id, it.date, it.description, it.isDone, it.group) }
+    }
+
+    fun getEventsByGroup(group: Int): List<TaxEvent> {
+        return Realm.getDefaultInstance()
+            .where<TaxEventObject>()
+            .equalTo("group", group)
+            .findAll()
+            .map { TaxEvent(it.id, it.date, it.description, it.isDone, it.group) }
     }
 }

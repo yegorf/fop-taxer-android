@@ -26,7 +26,7 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater)
         presenter.onCreate(this)
-        context?.let {
+        activity?.let {
             presenter.getCalendar(it)
         }
         return binding.root

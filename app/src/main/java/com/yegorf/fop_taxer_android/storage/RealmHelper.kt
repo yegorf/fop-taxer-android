@@ -36,15 +36,41 @@ object RealmHelper {
     }
 
     private fun getEventsOnCurrentYear(context: Context): List<TaxEvent> {
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        val calendarFileName = "calendar$year.json"
+        val events = mutableListOf<TaxEvent>()
+        events.addAll(getEventsForGroup(context, 1))
+        events.addAll(getEventsForGroup(context, 2))
+        events.addAll(getEventsForGroup(context, 3))
+        return events
+    }
 
-        val inputStream = context.assets?.open(calendarFileName)
-        val scanner = Scanner(inputStream)
-        val builder = StringBuilder()
-        while (scanner.hasNext()) {
-            builder.append(scanner.nextLine())
+    private fun getEventsForGroup(context: Context, group: Int): List<TaxEvent> {
+        val year = Calendar.getInstance().get(Calendar.YEAR)
+        val calendarFileName = when (group) {
+            1 -> "calendar1_$year.json"
+            2 -> "calendar2_$year.json"
+            3 -> "calendar3_$year.json"
+            else -> null
         }
-        return Gson().fromJson(builder.toString(), Array<TaxEvent>::class.java).asList()
+
+        calendarFileName?.let {
+            try {
+                val inputStream = context.assets?.open(calendarFileName)
+                val scanner = Scanner(inputStream)
+                val builder = StringBuilder()
+                while (scanner.hasNext()) {
+                    builder.append(scanner.nextLine())
+                }
+                return Gson()
+                    .fromJson(builder.toString(), Array<TaxEvent>::class.java)
+                    .asList()
+                    .map {
+                        it.group = group
+                        return@map it
+                    }
+            } catch (e: Exception) {
+                return listOf()
+            }
+        }
+        return listOf()
     }
 }
