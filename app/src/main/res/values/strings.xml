@@ -12,4 +12,7 @@
     <string name="usd_rate_template">$ %1$s</string>
     <string name="usd_result_template">($%1$s)</string>
     <string name="tax_group">Tax group</string>
+    <string name="tax_group_1">Group 1</string>
+    <string name="tax_group_2">Group 2</string>
+    <string name="tax_group_3">Group 3</string>
 </resources>
