@@ -15,4 +15,7 @@
     <string name="tax_group_1">Group 1</string>
     <string name="tax_group_2">Group 2</string>
     <string name="tax_group_3">Group 3</string>
+    <string name="validation_error_empty">Can\'t be empty</string>
+    <string name="validation_error_format">Wrong format</string>
+    <string name="validation_error_zero">Can\'t be 0</string>
 </resources>

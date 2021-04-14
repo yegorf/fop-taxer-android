@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import com.yegorf.fop_taxer_android.Constants
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentCaltulationBinding
 
@@ -17,7 +17,7 @@ import com.yegorf.fop_taxer_android.databinding.FragmentCaltulationBinding
 class CalculationFragment : Fragment(), CalculationView {
 
     private lateinit var binding: FragmentCaltulationBinding
-    private val presenter: CalculationPresenter = CalculationPresenterImpl();
+    private val presenter: CalculationPresenter = CalculationPresenterImpl()
     private var usdRate: Float = -1f
 
     override fun onCreateView(
@@ -33,21 +33,92 @@ class CalculationFragment : Fragment(), CalculationView {
     }
 
     private fun setOnClickListeners() {
+        binding.etIncomeTotal.addTextChangedListener {
+            binding.incomeTotalLayout.isErrorEnabled = false
+        }
+        binding.etTaxPercent.addTextChangedListener {
+            binding.taxPercentLayout.isErrorEnabled = false
+        }
+
         binding.btnCalculate.setOnClickListener {
-            val totalIncomeText = binding.etIncomeTotal.text
-            val totalIncome: Float = totalIncomeText.toString().toFloat()
-            val tax = calculateTax(totalIncome)
-            val pureIncome = totalIncome - tax
-            val stringTax = "%.2f".format(tax)
-            val stringPureIncome = "%.2f".format(pureIncome)
+            var isIncomeValidated = true
+            var isPercentValidated = true
+
+            val totalIncomeText = binding.etIncomeTotal.text.toString()
+            val taxText = binding.etTaxPercent.text.toString()
+
+            if (totalIncomeText.isEmpty()) {
+                if (isIncomeValidated) {
+                    binding.incomeTotalLayout.error = getString(R.string.validation_error_empty)
+                    isIncomeValidated = false
+                }
+            }
+            if (taxText.isEmpty()) {
+                if (isPercentValidated) {
+                    binding.taxPercentLayout.error = getString(R.string.validation_error_empty)
+                    isPercentValidated = false
+                }
+            }
+
+            if (!isIncomeValidated && !isPercentValidated) {
+                return@setOnClickListener
+            }
+
+            var totalIncome = 0f
+            var tax = 0f
+
+            try {
+                totalIncome = totalIncomeText.toFloat()
+            } catch (e: NumberFormatException) {
+                if (isIncomeValidated) {
+                    binding.incomeTotalLayout.error = getString(R.string.validation_error_format)
+                    isIncomeValidated = false
+                }
+            }
+
+            try {
+                tax = taxText.toFloat()
+            } catch (e: NumberFormatException) {
+                if (isPercentValidated) {
+                    binding.taxPercentLayout.error = getString(R.string.validation_error_format)
+                    isPercentValidated = false
+                }
+            }
+
+            if (!isIncomeValidated && !isPercentValidated) {
+                return@setOnClickListener
+            }
+
+            if (totalIncome == 0f) {
+                if (isIncomeValidated) {
+                    binding.incomeTotalLayout.error = getString(R.string.validation_error_zero)
+                    isIncomeValidated = false
+                }
+            }
+            if (tax == 0f) {
+                if (isPercentValidated) {
+                    binding.taxPercentLayout.error = getString(R.string.validation_error_zero)
+                    isPercentValidated = false
+                }
+            }
+
+            if (!isIncomeValidated || !isPercentValidated) {
+                return@setOnClickListener
+            }
+
+            val taxSum = totalIncome * tax / 100
+            val pureIncomeSum = totalIncome - taxSum
+
+            val stringTax = "%.2f".format(taxSum)
+            val stringPureIncome = "%.2f".format(pureIncomeSum)
 
             binding.resultsContainer.visibility = View.VISIBLE
             binding.tvTaxResult.setResult(stringTax)
             binding.tvPureResult.setResult(stringPureIncome)
 
             if (usdRate != -1f) {
-                val taxUsd = tax / usdRate
-                val pureIncomeUsd = pureIncome / usdRate
+                val taxUsd = taxSum / usdRate
+                val pureIncomeUsd = pureIncomeSum / usdRate
                 val stringTaxUsd = "%.2f".format(taxUsd)
                 val stringPureIncomeUsd = "%.2f".format(pureIncomeUsd)
                 binding.tvTaxResult.setResultUSD(stringTaxUsd)
@@ -73,8 +144,6 @@ class CalculationFragment : Fragment(), CalculationView {
                 .show()
         }
     }
-
-    private fun calculateTax(totalIncome: Float) = totalIncome * Constants.TAX_EN_3
 
     override fun setCurrency(currency: Float) {
         if (currency != -1f) {
