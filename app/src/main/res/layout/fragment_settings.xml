@@ -3,12 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tax_system" />
 
     <RadioGroup
         android:id="@+id/rg_tax_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -16,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@android:color/transparent"
             android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
             android:gravity="center"
-            android:textColor="@color/radio_text_color"
-            android:text="@string/tax_group_1" />
+            android:text="@string/tax_group_1"
+            android:textColor="@color/radio_text_color" />
 
         <Space
             android:layout_width="10dp"
@@ -31,11 +38,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@android:color/transparent"
             android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
             android:gravity="center"
-            android:textColor="@color/radio_text_color"
-            android:text="@string/tax_group_2" />
+            android:text="@string/tax_group_2"
+            android:textColor="@color/radio_text_color" />
 
         <Space
             android:layout_width="10dp"
@@ -46,11 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@android:color/transparent"
             android:background="@drawable/bg_radio"
+            android:button="@android:color/transparent"
             android:gravity="center"
-            android:textColor="@color/radio_text_color"
-            android:text="@string/tax_group_3" />
+            android:text="@string/tax_group_3"
+            android:textColor="@color/radio_text_color" />
 
     </RadioGroup>
 
