@@ -18,4 +18,6 @@
     <string name="validation_error_format">Wrong format</string>
     <string name="validation_error_zero">Can\'t be 0</string>
     <string name="tax_system">Tax system</string>
+    <string name="tax_sum">Tax sum</string>
+    <string name="pure_income">Pure income</string>
 </resources>

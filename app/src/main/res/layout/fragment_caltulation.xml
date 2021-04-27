@@ -115,13 +115,13 @@
             android:id="@+id/tv_tax_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:descriptionText="Tax sum" />
+            app:descriptionText="@string/tax_sum" />
 
         <com.yegorf.fop_taxer_android.view.ResultTextView
             android:id="@+id/tv_pure_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:descriptionText="Pure income" />
+            app:descriptionText="@string/pure_income" />
 
     </LinearLayout>
 

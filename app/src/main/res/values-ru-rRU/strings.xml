@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FOP Taxer</string>
+    <string name="calculation_income_total">Общий доход</string>
+    <string name="calculation_calculate">Расчитать</string>
+    <string name="notifications">Уведомления</string>
+    <string name="calendar">Календарь</string>
+    <string name="calculation">Расчет</string>
+    <string name="settings">Настройки</string>
+    <string name="reminder">Напоминания</string>
+    <string name="get_rates_fail">Не удалось получить курс</string>
+    <string name="copied_to_clipboard">Скопировано в буфер</string>
+    <string name="tax_group_1">1 группа</string>
+    <string name="tax_group_2">2 группа</string>
+    <string name="tax_group_3">3 группа</string>
+    <string name="validation_error_empty">Не может быть пустым</string>
+    <string name="validation_error_format">Неверный формат</string>
+    <string name="validation_error_zero">Не может быть 0</string>
+    <string name="tax_system">Система налогообложения</string>
+    <string name="tax_sum">Сумма налога</string>
+    <string name="pure_income">Чистый доход</string>
+</resources>
