@@ -4,14 +4,12 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.yegorf.fop_taxer_android.storage.dao.TaxEventDao
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ReminderManager(private val context: Context) {
-
-    val TAG = ReminderManager::class.java.simpleName
 
     private fun setReminders(taxGroup: Int) {
         TaxEventDao.getEventsByGroup(taxGroup)
@@ -21,7 +19,7 @@ class ReminderManager(private val context: Context) {
                 date?.let {
                     val dateMills = date.time
                     setReminder(dateMills)
-                    Log.d(TAG, "Reminder for event ${event.description} set on $dateString")
+                    Timber.d("Reminder for event ${event.description} set on $dateString")
                 }
             }
     }
