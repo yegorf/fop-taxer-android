@@ -19,4 +19,7 @@
     <string name="tax_system">Система налогообложения</string>
     <string name="tax_sum">Сумма налога</string>
     <string name="pure_income">Чистый доход</string>
+    <string name="default_notification_description">Время платить налоги</string>
+    <string name="settings_reminders">Напоминания</string>
+    <string name="notifications_sound">Звук уведомлений</string>
 </resources>

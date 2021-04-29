@@ -11,24 +11,20 @@ import java.util.*
 
 class ReminderManager(private val context: Context) {
 
+    companion object {
+        const val DESCRIPTION_EXTRA_NAME = "DESCRIPTION_EXTRA_NAME"
+        const val NOTIFICATION_TIME_HOURS = 12 * 60 * 60 * 1000
+    }
+
     fun setReminderForEvent(event: TaxEvent) {
-        setReminder(getReminderTimeMills(event.date), event.id)
-    }
-
-    fun disableReminderForEvent(requestCode: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(context, ReminderReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
-        alarmManager.cancel(pendingIntent)
+        intent.putExtra(DESCRIPTION_EXTRA_NAME, event.description)
 
-        Timber.d("Reminder disabled (id: $requestCode)")
-    }
+        val pendingIntent = PendingIntent.getBroadcast(context, event.id, intent, 0)
 
-    private fun setReminder(timeMills: Long, requestCode: Int) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, ReminderReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
-
+        val timeMills = getReminderTimeMills(event.date) + NOTIFICATION_TIME_HOURS
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             alarmManager.setAlarmClock(
                 AlarmManager.AlarmClockInfo(timeMills, pendingIntent),
@@ -42,7 +38,16 @@ class ReminderManager(private val context: Context) {
             )
         }
 
-        Timber.d("Reminder added (id: $requestCode, timestamp: $timeMills)")
+        Timber.d("Reminder added (id: ${event.id}, timestamp: $timeMills)")
+    }
+
+    fun disableReminderForEvent(requestCode: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, ReminderReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
+        alarmManager.cancel(pendingIntent)
+
+        Timber.d("Reminder disabled (id: $requestCode)")
     }
 
     private fun getReminderTimeMills(dateString: String): Long {

@@ -20,4 +20,7 @@
     <string name="tax_system">Tax system</string>
     <string name="tax_sum">Tax sum</string>
     <string name="pure_income">Pure income</string>
+    <string name="default_notification_description">Time to pay a taxes</string>
+    <string name="settings_reminders">Reminders</string>
+    <string name="notifications_sound">Notifications sound</string>
 </resources>
