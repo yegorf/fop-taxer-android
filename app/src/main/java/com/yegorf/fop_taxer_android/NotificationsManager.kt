@@ -29,6 +29,8 @@ class NotificationsManager(private val context: Context) {
         val sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         if (PreferencesManager(context).isNotificationsSoundOn()) {
             notificationBuilder.setSound(sound)
+        } else {
+            notificationBuilder.setNotificationSilent()
         }
 
         manager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())

@@ -49,7 +49,7 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
     }
 
     override fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int) {
-        presenter.changeEventAlarm(event)
+        presenter.changeEventAlarm(event, context!!)
         adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.ALARM_STATUS_UPDATE)
     }
 }

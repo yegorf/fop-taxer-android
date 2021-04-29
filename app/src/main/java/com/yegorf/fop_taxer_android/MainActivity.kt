@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_calendar -> FragmentNavigator.Screen.CALENDAR
                 R.id.navigation_calculation -> FragmentNavigator.Screen.CALCULATION
                 R.id.navigation_settings -> FragmentNavigator.Screen.SETTINGS
-                R.id.navigation_reminder -> FragmentNavigator.Screen.REMINDER
                 else -> FragmentNavigator.Screen.CALENDAR
             }
             FragmentNavigator(supportFragmentManager).openFragment(screen)

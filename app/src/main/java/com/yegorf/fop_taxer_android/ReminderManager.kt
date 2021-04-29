@@ -11,8 +11,17 @@ import java.util.*
 
 class ReminderManager(private val context: Context) {
 
-    private fun setReminderForEvent(event: TaxEvent) {
+    fun setReminderForEvent(event: TaxEvent) {
         setReminder(getReminderTimeMills(event.date), event.id)
+    }
+
+    fun disableReminderForEvent(requestCode: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, ReminderReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
+        alarmManager.cancel(pendingIntent)
+
+        Timber.d("Reminder disabled (id: $requestCode)")
     }
 
     private fun setReminder(timeMills: Long, requestCode: Int) {
@@ -37,7 +46,7 @@ class ReminderManager(private val context: Context) {
     }
 
     private fun getReminderTimeMills(dateString: String): Long {
-        val date = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(dateString)
+        val date = SimpleDateFormat("dd.MM.yyyy", Locale.US).parse(dateString)
         return date!!.time
     }
 }

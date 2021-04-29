@@ -11,5 +11,5 @@ interface CalendarPresenter : Presenter<CalendarView> {
 
     fun setEventAsDone(event: TaxEvent)
 
-    fun changeEventAlarm(event: TaxEvent)
+    fun changeEventAlarm(event: TaxEvent, context: Context)
 }
