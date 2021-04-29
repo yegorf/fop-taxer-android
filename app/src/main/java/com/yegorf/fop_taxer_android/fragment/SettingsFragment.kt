@@ -17,15 +17,16 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSettingsBinding.inflate(inflater)
         initViews()
         return binding.root
     }
 
     private fun initViews() {
-        activity?.let {
-            val preferencesManager = PreferencesManager(activity!!)
+        val context = context
+        context?.let {
+            val preferencesManager = PreferencesManager(context)
             val taxGroup = preferencesManager.getTaxGroup()
             binding.radioGroup1.isChecked = taxGroup == 1
             binding.radioGroup2.isChecked = taxGroup == 2
@@ -39,6 +40,11 @@ class SettingsFragment : Fragment() {
                     else -> 3
                 }
                 preferencesManager.setTaxGroup(selectedVariant)
+            }
+
+            binding.switchNotificationsSound.isChecked = preferencesManager.isNotificationsSoundOn()
+            binding.switchNotificationsSound.setOnCheckedChangeListener { _, isChecked ->
+                preferencesManager.setNotificationsSoundOn(isChecked)
             }
         }
     }

@@ -11,11 +11,14 @@
         android:layout_height="wrap_content"
         android:text="@string/tax_system" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <RadioGroup
         android:id="@+id/rg_tax_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -60,5 +63,24 @@
             android:textColor="@color/radio_text_color" />
 
     </RadioGroup>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reminder notifications" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_notifications_sound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications sound" />
 
 </LinearLayout>

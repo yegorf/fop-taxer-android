@@ -3,6 +3,7 @@ package com.yegorf.fop_taxer_android
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -20,13 +21,17 @@ class NotificationsManager(private val context: Context) {
                 as NotificationManager
         createNotificationChannel(manager)
 
-        val notification = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
+        val notificationBuilder = NotificationCompat.Builder(context, REMINDER_CHANNEL_ID)
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(description)
             .setSmallIcon(R.drawable.ic_app)
-            .build()
 
-        manager.notify(System.currentTimeMillis().toInt(), notification)
+        val sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        if (PreferencesManager(context).isNotificationsSoundOn()) {
+            notificationBuilder.setSound(sound)
+        }
+
+        manager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
     }
 
     private fun createNotificationChannel(notificationManager: NotificationManager) {

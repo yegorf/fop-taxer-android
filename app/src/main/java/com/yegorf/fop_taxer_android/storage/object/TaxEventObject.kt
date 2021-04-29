@@ -11,6 +11,7 @@ open class TaxEventObject() : RealmObject() {
     lateinit var description: String
     var group: Int = 0
     var isDone: Boolean = false
+    var isAlarmOn: Boolean = false
 
     constructor(taxEvent: TaxEvent): this() {
         id = taxEvent.id
@@ -18,5 +19,6 @@ open class TaxEventObject() : RealmObject() {
         description = taxEvent.description
         group = taxEvent.group
         isDone = taxEvent.isDone
+        isAlarmOn = taxEvent.isAlarmOn
     }
 }

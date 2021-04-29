@@ -1,6 +1,7 @@
 package com.yegorf.fop_taxer_android.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
 
     object Payload {
         const val DONE_STATUS_UPDATE = "DONE_STATUS_UPDATE"
+        const val ALARM_STATUS_UPDATE = "ALARM_STATUS_UPDATE"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
@@ -27,8 +29,9 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
 
     override fun onBindViewHolder(holder: EventHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            if (payloads[0] == Payload.DONE_STATUS_UPDATE) {
-                holder.bindDoneStatus(data[position])
+            when(payloads[0]) {
+                Payload.DONE_STATUS_UPDATE -> holder.bindDoneStatus(data[position])
+                Payload.ALARM_STATUS_UPDATE -> holder.bindAlarmStatus(data[position])
             }
         }
         super.onBindViewHolder(holder, position, payloads)
@@ -55,22 +58,44 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
                     return@setOnLongClickListener true
                 }
             }
+
+            binding.ivAlarm.setOnClickListener {
+                event.isAlarmOn = !event.isAlarmOn
+                listener.onEventAlarmClick(event, adapterPosition)
+            }
         }
 
         fun bindDoneStatus(event: TaxEvent) {
-            val indicatorColor = when (DateHelper.getEventStatus(event)) {
+            val eventStatus = DateHelper.getEventStatus(event)
+            val indicatorColor = when (eventStatus) {
                 DateHelper.DateStatus.EXPECTED -> R.drawable.circle_indicator_grey
                 DateHelper.DateStatus.SOON -> R.drawable.circle_indicator_yellow
                 DateHelper.DateStatus.EXPIRED -> R.drawable.circle_indicator_red
                 DateHelper.DateStatus.DONE -> R.drawable.circle_indicator_green
             }
+            if (eventStatus == DateHelper.DateStatus.DONE) {
+                binding.ivAlarm.visibility = View.GONE
+            } else {
+                bindAlarmStatus(event)
+            }
             binding.dateIndicator.background =
                 ContextCompat.getDrawable(binding.root.context, indicatorColor)
+        }
+
+        fun bindAlarmStatus(event: TaxEvent) {
+            val alarmIcon = if (event.isAlarmOn) {
+                R.drawable.ic_alarm_on
+            } else {
+                R.drawable.ic_alarm_off
+            }
+            binding.ivAlarm.setImageResource(alarmIcon)
         }
     }
 
     interface TaxEventListener {
 
         fun onEventLongTap(event: TaxEvent, adapterPosition: Int)
+
+        fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int)
     }
 }

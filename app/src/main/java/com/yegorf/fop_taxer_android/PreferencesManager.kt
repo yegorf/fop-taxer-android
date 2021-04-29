@@ -2,25 +2,19 @@ package com.yegorf.fop_taxer_android
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.fragment.app.FragmentActivity
 
-class PreferencesManager(activity: FragmentActivity) {
+class PreferencesManager(context: Context) {
 
-    private val preferences: SharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
+    companion object {
+        const val SHARED_PREFERENCES_NAME = "taxer_shared_preferences"
+    }
+
+    private val preferences: SharedPreferences =
+        context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
     object Key {
-        const val NOTIFICATIONS_ON = "NOTIFICATIONS_ON"
         const val TAX_GROUP = "TAX_GROUP"
-    }
-
-    fun setNotificationsOn(notificationsOn: Boolean) {
-        preferences.edit()
-            .putBoolean(Key.NOTIFICATIONS_ON, notificationsOn)
-            .apply()
-    }
-
-    fun isShowNotifications(): Boolean {
-        return preferences.getBoolean(Key.NOTIFICATIONS_ON, true)
+        const val NOTIFICATIONS_SOUND_ON = "NOTIFICATIONS_SOUND_ON"
     }
 
     fun setTaxGroup(group: Int) {
@@ -31,5 +25,15 @@ class PreferencesManager(activity: FragmentActivity) {
 
     fun getTaxGroup(): Int {
         return preferences.getInt(Key.TAX_GROUP, 3)
+    }
+
+    fun setNotificationsSoundOn(notificationsSoundOn: Boolean) {
+        preferences.edit()
+            .putBoolean(Key.NOTIFICATIONS_SOUND_ON, notificationsSoundOn)
+            .apply()
+    }
+
+    fun isNotificationsSoundOn(): Boolean {
+        return preferences.getBoolean(Key.NOTIFICATIONS_SOUND_ON, true)
     }
 }

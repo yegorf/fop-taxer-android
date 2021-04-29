@@ -1,5 +1,6 @@
 package com.yegorf.fop_taxer_android.fragment.calendar
 
+import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.yegorf.fop_taxer_android.PreferencesManager
 import com.yegorf.fop_taxer_android.data.TaxEvent
@@ -15,13 +16,17 @@ class CalendarPresenterImpl : AbstractPresenter<CalendarView>(), CalendarPresent
         view.setDate(DateHelper.getCurrentDate("dd.MM.yyyy"))
     }
 
-    override fun getCalendar(activity: FragmentActivity) {
-        val taxGroup = PreferencesManager(activity).getTaxGroup()
+    override fun getCalendar(context: Context) {
+        val taxGroup = PreferencesManager(context).getTaxGroup()
         val events = TaxEventDao.getEventsByGroup(taxGroup)
         view?.setCalendar(events)
     }
 
     override fun setEventAsDone(event: TaxEvent) {
-        TaxEventDao.markAsDone(TaxEventObject(event))
+        TaxEventDao.update(TaxEventObject(event))
+    }
+
+    override fun changeEventAlarm(event: TaxEvent) {
+        TaxEventDao.update(TaxEventObject(event))
     }
 }

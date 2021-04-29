@@ -26,7 +26,7 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater)
         presenter.onCreate(this)
-        activity?.let {
+        context?.let {
             presenter.getCalendar(it)
         }
         return binding.root
@@ -46,5 +46,10 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
     override fun onEventLongTap(event: TaxEvent, adapterPosition: Int) {
         presenter.setEventAsDone(event)
         adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.DONE_STATUS_UPDATE)
+    }
+
+    override fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int) {
+        presenter.changeEventAlarm(event)
+        adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.ALARM_STATUS_UPDATE)
     }
 }

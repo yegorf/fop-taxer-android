@@ -12,7 +12,7 @@ object TaxEventDao : RealmDao<TaxEventObject>() {
         realm.insert(taxEventObject)
     }
 
-    fun markAsDone(taxEventObject: TaxEventObject) {
+    fun update(taxEventObject: TaxEventObject) {
         Realm.getDefaultInstance().executeTransaction {
             it.insertOrUpdate(taxEventObject)
         }
@@ -22,7 +22,7 @@ object TaxEventDao : RealmDao<TaxEventObject>() {
         return Realm.getDefaultInstance()
             .where<TaxEventObject>()
             .findAll()
-            .map { TaxEvent(it.id, it.date, it.description, it.isDone, it.group) }
+            .map { TaxEvent(it) }
     }
 
     fun getEventsByGroup(group: Int): List<TaxEvent> {
@@ -30,6 +30,6 @@ object TaxEventDao : RealmDao<TaxEventObject>() {
             .where<TaxEventObject>()
             .equalTo("group", group)
             .findAll()
-            .map { TaxEvent(it.id, it.date, it.description, it.isDone, it.group) }
+            .map { TaxEvent(it) }
     }
 }

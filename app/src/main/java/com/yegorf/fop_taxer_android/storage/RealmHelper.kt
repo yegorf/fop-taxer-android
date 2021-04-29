@@ -32,6 +32,7 @@ object RealmHelper {
                         TaxEventDao.insert(realm, eventObject)
                     }
             }
+            .deleteRealmIfMigrationNeeded() //todo: implement normal migration
             .build()
     }
 
