@@ -24,4 +24,5 @@
     <string name="notifications_sound">Звук уведомлений</string>
     <string name="contact_us">свяжитесь с нами</string>
     <string name="have_a_question_complaint_or_suggestion">Есть вопрос, жалоба или предложение?</string>
+    <string name="notifications_time">Время уведомлений</string>
 </resources>

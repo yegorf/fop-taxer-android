@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.yegorf.fop_taxer_android.PreferencesManager
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentSettingsBinding
@@ -50,6 +52,31 @@ class SettingsFragment : Fragment() {
 
             binding.contactUsSection.setOnClickListener {
                 EmailManager.contactUs(context)
+            }
+
+            val notificationsTime = preferencesManager.getNotificationsTime()
+            binding.tvNotificationsTime.text = notificationsTime
+            binding.tvNotificationsTime.setOnClickListener {
+                val fragmentManager = fragmentManager
+                fragmentManager?.let {
+                    val timeSplit = notificationsTime.split(":")
+                    val picker = MaterialTimePicker.Builder()
+                        .setTimeFormat(TimeFormat.CLOCK_24H)
+                        .setHour(timeSplit[0].toInt())
+                        .setMinute(timeSplit[1].toInt())
+                        .build()
+
+                    picker.addOnPositiveButtonClickListener {
+                        val hour = picker.hour
+                        val minute = picker.minute
+                        val timeString = "$hour:$minute"
+
+                        binding.tvNotificationsTime.text = timeString
+                        preferencesManager.setNotificationsTime(timeString)
+                    }
+
+                    picker.show(fragmentManager, "notification_time_picket")
+                }
             }
         }
     }

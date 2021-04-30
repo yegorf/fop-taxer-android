@@ -13,7 +13,6 @@ class ReminderManager(private val context: Context) {
 
     companion object {
         const val DESCRIPTION_EXTRA_NAME = "DESCRIPTION_EXTRA_NAME"
-        const val NOTIFICATION_TIME_HOURS = 12 * 60 * 60 * 1000
     }
 
     fun setReminderForEvent(event: TaxEvent) {
@@ -24,21 +23,21 @@ class ReminderManager(private val context: Context) {
 
         val pendingIntent = PendingIntent.getBroadcast(context, event.id, intent, 0)
 
-        val timeMills = getReminderTimeMills(event.date) + NOTIFICATION_TIME_HOURS
+        val dateTimeMills = getReminderDateMills(event.date) + getReminderTimeMills()
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             alarmManager.setAlarmClock(
-                AlarmManager.AlarmClockInfo(timeMills, pendingIntent),
+                AlarmManager.AlarmClockInfo(dateTimeMills, pendingIntent),
                 pendingIntent
             )
         } else {
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
-                timeMills,
+                dateTimeMills,
                 pendingIntent
             )
         }
 
-        Timber.d("Reminder added (id: ${event.id}, timestamp: $timeMills)")
+        Timber.d("Reminder added (id: ${event.id}, timestamp: $dateTimeMills)")
     }
 
     fun disableReminderForEvent(requestCode: Int) {
@@ -50,8 +49,16 @@ class ReminderManager(private val context: Context) {
         Timber.d("Reminder disabled (id: $requestCode)")
     }
 
-    private fun getReminderTimeMills(dateString: String): Long {
+    private fun getReminderDateMills(dateString: String): Long {
         val date = SimpleDateFormat("dd.MM.yyyy", Locale.US).parse(dateString)
         return date!!.time
+    }
+
+    private fun getReminderTimeMills(): Long {
+        val time = PreferencesManager(context).getNotificationsTime()
+        val split = time.split(":")
+        val hours = split[0].toLong() * 60 * 60 * 1000
+        val minutes = split[1].toLong() * 60 * 1000
+        return hours + minutes
     }
 }

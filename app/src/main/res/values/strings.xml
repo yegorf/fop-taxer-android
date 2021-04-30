@@ -25,4 +25,5 @@
     <string name="notifications_sound">Notifications sound</string>
     <string name="contact_us">contact us</string>
     <string name="have_a_question_complaint_or_suggestion">Have a question, complaint or suggestion?</string>
+    <string name="notifications_time">Notifications time</string>
 </resources>

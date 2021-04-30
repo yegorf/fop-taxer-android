@@ -29,7 +29,7 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
 
     override fun onBindViewHolder(holder: EventHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            when(payloads[0]) {
+            when (payloads[0]) {
                 Payload.DONE_STATUS_UPDATE -> holder.bindDoneStatus(data[position])
                 Payload.ALARM_STATUS_UPDATE -> holder.bindAlarmStatus(data[position])
             }
@@ -73,7 +73,7 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
                 DateHelper.DateStatus.EXPIRED -> R.drawable.circle_indicator_red
                 DateHelper.DateStatus.DONE -> R.drawable.circle_indicator_green
             }
-            if (eventStatus == DateHelper.DateStatus.DONE) {
+            if (eventStatus == DateHelper.DateStatus.DONE || eventStatus == DateHelper.DateStatus.EXPIRED) {
                 binding.ivAlarm.visibility = View.GONE
             } else {
                 bindAlarmStatus(event)
