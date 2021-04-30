@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.yegorf.fop_taxer_android.PreferencesManager
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentSettingsBinding
+import com.yegorf.fop_taxer_android.tools.EmailManager
 
 class SettingsFragment : Fragment() {
 
@@ -45,6 +46,10 @@ class SettingsFragment : Fragment() {
             binding.switchNotificationsSound.isChecked = preferencesManager.isNotificationsSoundOn()
             binding.switchNotificationsSound.setOnCheckedChangeListener { _, isChecked ->
                 preferencesManager.setNotificationsSoundOn(isChecked)
+            }
+
+            binding.contactUsSection.setOnClickListener {
+                EmailManager.contactUs(context)
             }
         }
     }
