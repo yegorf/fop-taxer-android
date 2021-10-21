@@ -43,7 +43,7 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
         binding.rvEvents.addItemDecoration(DividerItemDecoration(context, HORIZONTAL))
     }
 
-    override fun onEventLongTap(event: TaxEvent, adapterPosition: Int) {
+    override fun onEventClick(event: TaxEvent, adapterPosition: Int) {
         presenter.setEventAsDone(event)
         adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.DONE_STATUS_UPDATE)
     }

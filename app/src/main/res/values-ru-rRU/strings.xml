@@ -25,4 +25,8 @@
     <string name="contact_us">свяжитесь с нами</string>
     <string name="have_a_question_complaint_or_suggestion">Есть вопрос, жалоба или предложение?</string>
     <string name="notifications_time">Время уведомлений</string>
+    <string name="event_status_waiting">ожидается</string>
+    <string name="event_status_deadline">последний день</string>
+    <string name="event_status_expired">просрочено</string>
+    <string name="event_status_done">сделано</string>
 </resources>

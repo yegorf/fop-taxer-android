@@ -1,5 +1,6 @@
 package com.yegorf.fop_taxer_android.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,9 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
                 Payload.DONE_STATUS_UPDATE -> holder.bindDoneStatus(data[position])
                 Payload.ALARM_STATUS_UPDATE -> holder.bindAlarmStatus(data[position])
             }
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
         }
-        super.onBindViewHolder(holder, position, payloads)
     }
 
     override fun getItemCount() = data.size
@@ -49,37 +51,75 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
             binding.tvDescription.text = event.description
             binding.tvDate.text = event.date
             bindDoneStatus(event)
+            setOnClickListeners(event)
+        }
 
+        private fun setOnClickListeners(event: TaxEvent) {
             val eventStatus = DateHelper.getEventStatus(event)
             if (eventStatus == DateHelper.DateStatus.EXPIRED || eventStatus == DateHelper.DateStatus.DONE) { //todo: temporary solution
-                itemView.setOnLongClickListener {
-                    event.isDone = !event.isDone
-                    listener.onEventLongTap(event, adapterPosition)
-                    return@setOnLongClickListener true
+                itemView.setOnClickListener {
+                    event.apply { isDone = !isDone }
+                    listener.onEventClick(event, adapterPosition)
                 }
             }
 
             binding.ivAlarm.setOnClickListener {
-                event.isAlarmOn = !event.isAlarmOn
+                event.apply { isAlarmOn = !isAlarmOn }
                 listener.onEventAlarmClick(event, adapterPosition)
             }
         }
 
         fun bindDoneStatus(event: TaxEvent) {
             val eventStatus = DateHelper.getEventStatus(event)
-            val indicatorColor = when (eventStatus) {
-                DateHelper.DateStatus.EXPECTED -> R.drawable.circle_indicator_grey
-                DateHelper.DateStatus.SOON -> R.drawable.circle_indicator_yellow
-                DateHelper.DateStatus.EXPIRED -> R.drawable.circle_indicator_red
-                DateHelper.DateStatus.DONE -> R.drawable.circle_indicator_green
-            }
+            setTextCrossing(eventStatus)
+            setStatusText(eventStatus)
+
             if (eventStatus == DateHelper.DateStatus.DONE || eventStatus == DateHelper.DateStatus.EXPIRED) {
                 binding.ivAlarm.visibility = View.GONE
             } else {
                 bindAlarmStatus(event)
             }
-            binding.dateIndicator.background =
-                ContextCompat.getDrawable(binding.root.context, indicatorColor)
+        }
+
+        private fun setStatusText(status: DateHelper.DateStatus) {
+            val params = when (status) {
+                DateHelper.DateStatus.EXPECTED -> Triple(
+                    R.string.event_status_waiting,
+                    R.color.lightGrey,
+                    R.drawable.bg_event_status_expected
+                )
+                DateHelper.DateStatus.SOON -> Triple(
+                    R.string.event_status_deadline,
+                    R.color.warningYellow,
+                    R.drawable.bg_event_status_soon
+                )
+                DateHelper.DateStatus.EXPIRED -> Triple(
+                    R.string.event_status_expired,
+                    R.color.coralRed,
+                    R.drawable.bg_event_status_expired
+                )
+                DateHelper.DateStatus.DONE -> Triple(
+                    R.string.event_status_done,
+                    R.color.lightGreen,
+                    R.drawable.bg_event_status_done
+                )
+            }
+
+            binding.tvStatus.apply {
+                this.text = itemView.resources.getText(params.first)
+                this.background = ContextCompat.getDrawable(itemView.context, params.third)
+                this.setTextColor(ContextCompat.getColor(itemView.context, params.second))
+            }
+        }
+
+        private fun setTextCrossing(status: DateHelper.DateStatus) {
+            if (!binding.tvDescription.paint.isStrikeThruText && status == DateHelper.DateStatus.DONE) {
+                binding.tvDescription.paintFlags =
+                    binding.tvDescription.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                binding.tvDescription.paintFlags =
+                    binding.tvDescription.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            }
         }
 
         fun bindAlarmStatus(event: TaxEvent) {
@@ -94,7 +134,7 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
 
     interface TaxEventListener {
 
-        fun onEventLongTap(event: TaxEvent, adapterPosition: Int)
+        fun onEventClick(event: TaxEvent, adapterPosition: Int)
 
         fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int)
     }

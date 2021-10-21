@@ -26,4 +26,8 @@
     <string name="contact_us">contact us</string>
     <string name="have_a_question_complaint_or_suggestion">Have a question, complaint or suggestion?</string>
     <string name="notifications_time">Notifications time</string>
+    <string name="event_status_waiting">waiting</string>
+    <string name="event_status_deadline">deadline</string>
+    <string name="event_status_expired">expired</string>
+    <string name="event_status_done">done</string>
 </resources>
