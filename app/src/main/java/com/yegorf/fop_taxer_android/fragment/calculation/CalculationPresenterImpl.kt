@@ -12,8 +12,11 @@ class CalculationPresenterImpl : AbstractPresenter<CalculationView>(), Calculati
 
     override fun getCurrency() {
         val currentDate = DateHelper.getCurrentDate("yyyyMMdd")
-        val url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=$currentDate&json"
-        val request = Request.Builder().url(url).build()
+        val url =
+            "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&date=$currentDate&json"
+        val request = Request.Builder()
+            .url(url)
+            .build()
 
         okHttpClient.newCall(request)
             .enqueue(object : Callback {
@@ -24,12 +27,14 @@ class CalculationPresenterImpl : AbstractPresenter<CalculationView>(), Calculati
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    response.body()?.string()?.let {
-                        val rate = JSONArray(it).getJSONObject(0).get("rate")
-                        runOnUiThread {
-                            view?.setCurrency(rate.toString().toFloat())
+                    response.body
+                        ?.string()
+                        ?.let {
+                            val rate = JSONArray(it).getJSONObject(0).get("rate")
+                            runOnUiThread {
+                                view?.setCurrency(rate.toString().toFloat())
+                            }
                         }
-                    }
                 }
             })
     }
