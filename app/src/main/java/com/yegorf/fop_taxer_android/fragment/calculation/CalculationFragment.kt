@@ -1,17 +1,14 @@
 package com.yegorf.fop_taxer_android.fragment.calculation
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.databinding.FragmentCaltulationBinding
+import com.yegorf.fop_taxer_android.tools.copyToClipboard
 
 
 class CalculationFragment : Fragment(), CalculationView {
@@ -126,22 +123,15 @@ class CalculationFragment : Fragment(), CalculationView {
             }
 
             binding.tvTaxResult.setOnCopyClickListener {
-                copyToClipboard(stringTax)
+                activity?.let {
+                    copyToClipboard(it, stringTax)
+                }
             }
             binding.tvPureResult.setOnCopyClickListener {
-                copyToClipboard(stringPureIncome)
+                activity?.let {
+                    copyToClipboard(it, stringPureIncome)
+                }
             }
-        }
-    }
-
-    private fun copyToClipboard(text: String) {
-        activity?.let {
-            val clipboard =
-                it.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("label", text)
-            clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
-                .show()
         }
     }
 

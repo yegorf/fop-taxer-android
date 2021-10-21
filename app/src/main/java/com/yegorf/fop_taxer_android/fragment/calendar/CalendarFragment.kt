@@ -13,6 +13,7 @@ import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.adapter.EventsAdapter
 import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.databinding.FragmentCalendarBinding
+import com.yegorf.fop_taxer_android.tools.copyToClipboard
 
 
 class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListener {
@@ -65,6 +66,12 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
     override fun onEventClick(event: TaxEvent, adapterPosition: Int) {
         presenter.setEventAsDone(event)
         adapter.notifyItemChanged(adapterPosition, EventsAdapter.Payload.DONE_STATUS_UPDATE)
+    }
+
+    override fun onEventLongTap(event: TaxEvent) {
+        activity?.let {
+            copyToClipboard(it, "${event.date} - ${event.description}")
+        }
     }
 
     override fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int) {

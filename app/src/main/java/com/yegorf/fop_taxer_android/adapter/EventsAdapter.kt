@@ -63,6 +63,11 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
                 }
             }
 
+            itemView.setOnLongClickListener {
+                listener.onEventLongTap(event)
+                return@setOnLongClickListener true
+            }
+
             binding.ivAlarm.setOnClickListener {
                 event.apply { isAlarmOn = !isAlarmOn }
                 listener.onEventAlarmClick(event, adapterPosition)
@@ -135,6 +140,8 @@ class EventsAdapter(private val data: List<TaxEvent>, private val listener: TaxE
     interface TaxEventListener {
 
         fun onEventClick(event: TaxEvent, adapterPosition: Int)
+
+        fun onEventLongTap(event: TaxEvent)
 
         fun onEventAlarmClick(event: TaxEvent, adapterPosition: Int)
     }
