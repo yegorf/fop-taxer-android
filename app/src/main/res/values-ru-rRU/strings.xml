@@ -29,4 +29,7 @@
     <string name="event_status_deadline">последний день</string>
     <string name="event_status_expired">просрочено</string>
     <string name="event_status_done">сделано</string>
+    <string name="user_manual_title">Подсказки</string>
+    <string name="user_manual_description">Нажмите на событие чтобы отметить его как выполненное.\n\nНажмите на изображение часов чтобы включить или выключить напоминание.\nНапоминание приходит один раз в последний день события. В настройках можно поменять время напоминания и включить или выключить его звук.</string>
+    <string name="user_manual_close_button">Закрыть</string>
 </resources>

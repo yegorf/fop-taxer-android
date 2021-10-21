@@ -30,4 +30,7 @@
     <string name="event_status_deadline">deadline</string>
     <string name="event_status_expired">expired</string>
     <string name="event_status_done">done</string>
+    <string name="user_manual_title">Tips</string>
+    <string name="user_manual_description">Click on an event to mark it as completed.\n\nClick on the clock icon to turn the reminder on or off.\nThe reminder comes once on the last day of the event. In the settings, you can change the reminder time and enable or disable its sound.</string>
+    <string name="user_manual_close_button">Close</string>
 </resources>

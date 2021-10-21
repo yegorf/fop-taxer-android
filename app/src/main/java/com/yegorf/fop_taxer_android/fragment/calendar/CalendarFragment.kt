@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yegorf.fop_taxer_android.R
 import com.yegorf.fop_taxer_android.adapter.EventsAdapter
 import com.yegorf.fop_taxer_android.data.TaxEvent
 import com.yegorf.fop_taxer_android.databinding.FragmentCalendarBinding
@@ -29,7 +31,24 @@ class CalendarFragment : Fragment(), CalendarView, EventsAdapter.TaxEventListene
         context?.let {
             presenter.getCalendar(it)
         }
+        binding.ivUserManual.setOnClickListener {
+            showUserManualPopup()
+        }
+
         return binding.root
+    }
+
+    private fun showUserManualPopup() {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(getString(R.string.user_manual_title))
+                .setMessage(getString(R.string.user_manual_description))
+                .setPositiveButton(
+                    getString(R.string.user_manual_close_button)
+                ) { dialog, _ -> dialog.dismiss() }
+                .create()
+                .show()
+        }
     }
 
     override fun setDate(date: String) {

@@ -5,24 +5,40 @@
     android:layout_height="match_parent"
     android:clipToPadding="false">
 
-    <TextView
-        android:id="@+id/tv_current_date"
+    <RelativeLayout
+        android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:elevation="5dp"
         android:background="@color/white"
-        android:gravity="center"
-        tools:text="21.01.2021" />
+        android:elevation="5dp">
+
+        <TextView
+            android:id="@+id/tv_current_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:gravity="center"
+            tools:text="21.01.2021" />
+
+        <ImageView
+            android:id="@+id/iv_user_manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_user_manual"
+            android:layout_alignParentEnd="true"
+            android:padding="6dp" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_current_date"
+        android:layout_below="@+id/top_panel"
         tools:listitem="@layout/item_tax_event"/>
 
 </RelativeLayout>
