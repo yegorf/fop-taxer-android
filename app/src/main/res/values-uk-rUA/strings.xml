@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calculation_income_total">Загальний дохід</string>
+    <string name="calculation_calculate">Розрахувати</string>
+    <string name="notifications">Повідомлення</string>
+    <string name="calendar">Календар</string>
+    <string name="calculation">Розрахунок</string>
+    <string name="settings">Налаштування</string>
+    <string name="reminder">Нагадування</string>
+    <string name="get_rates_fail">Не вдалося отримати курс</string>
+    <string name="copied_to_clipboard">Скопійовано в буфер</string>
+    <string name="tax_group_1">1 група</string>
+    <string name="tax_group_2">2 група</string>
+    <string name="tax_group_3">3 група</string>
+    <string name="validation_error_empty">Не може бути порожнім</string>
+    <string name="validation_error_format">Неправильний формат</string>
+    <string name="validation_error_zero">Не може бути 0</string>
+    <string name="tax_system">Система оподаткування</string>
+    <string name="tax_sum">Сума податку</string>
+    <string name="pure_income">Чистий прибуток</string>
+    <string name="default_notification_description">Час платити податки</string>
+    <string name="settings_reminders">Нагадування</string>
+    <string name="notifications_sound">Звук повідомлень</string>
+    <string name="contact_us">Повідомте нам</string>
+    <string name="have_a_question_complaint_or_suggestion">Є питання, скарга або пропозиція?</string>
+    <string name="notifications_time">час повідомлень</string>
+    <string name="event_status_waiting">очікується</string>
+    <string name="event_status_deadline">останній день</string>
+    <string name="event_status_expired">прострочено</string>
+    <string name="event_status_done">зроблено</string>
+    <string name="user_manual_title">Підказки</string>
+    <string name="user_manual_description">Натисніть на подію щоб відзначити його як виконане.\n\nЗробіть довге натискання на подію щоб скопіювати інформацію про нього в буфер обміну.\n\nНатисніть на зображення годинника щоб включити або вимкнути нагадування.\nНагадування приходить один раз в останній день події. В налаштуваннях можна поміняти час нагадування і включити або виключити його звук.</string>
+    <string name="user_manual_close_button">Закрити</string>
+</resources>

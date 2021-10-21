@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FOP Taxer</string>
     <string name="calculation_income_total">Общий доход</string>
     <string name="calculation_calculate">Расчитать</string>
     <string name="notifications">Уведомления</string>

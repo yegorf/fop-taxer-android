@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FOP Taxer</string>
+    <string name="app_name" translatable="true">FOP Taxer</string>
     <string name="calculation_income_total">Total income</string>
     <string name="calculation_calculate">Calculate</string>
     <string name="notifications">Notifications</string>
